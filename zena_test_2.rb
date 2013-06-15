@@ -22,13 +22,12 @@ class HtmlGenerator
             #         puts "#{product['name']}"
             #         # wine << product
             # end
-            puts product['name']
-            puts product["producer_name"]
-            puts product['image_thumb_url']
-            puts product['product_id']
-            puts product['producer_name']
-            puts product['primary_category']
-            puts product['secondary_category']
+            # puts product['name']
+            # puts product["producer_name"]
+            # puts product['image_thumb_url']
+            # puts product['product_id']
+            # puts product['primary_category']
+            # puts product['secondary_category']
             puts product['package']
             puts product['price_in_cents']
             puts product['regular_price_in_cents']

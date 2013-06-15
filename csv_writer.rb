@@ -2,12 +2,18 @@ require 'csv'
 require 'json'
 require 'open-uri'
 
+###should try to fix line skips in CAV file as seen in Excel
+
 begin
     # Open CSV file
     f = CSV.open("new_wine_list.csv", "wb")
 
     # Setup CSV headers
-    csv_headers = %w( name primary_category producer_name secondary_category) 
+    csv_headers = %w( name id type producer_name  
+                    package price regular_price savings 
+                    offer_end_date stock_type 
+                    sugar_content origin is_vqa description image_thumb_url 
+                    image_url varietal style) 
     f << csv_headers
 
         def retreive_data(url)
@@ -22,14 +28,33 @@ begin
                 products_hash = retreive_data("http://lcboapi.com/stores/3/products?where=has_limited_time_offer&order=limited_time_offer_savings_in_cents&per_page=100&page=#{page_num}")
 
                 products_hash.each do |product|
-                    if product['primary_category'] == "Wine"
+                    if product['primary_category'] == "Wine" 
                             name = product['name']
-                            prime_cat = product['primary_category']
-                            prod_name = product['producer_name'] 
-                            sec_cat = product['secondary_category']
+                            id = product['id']
+                            type = product['secondary_category']
+                            producer_name = product['producer_name'] 
+                            package = product['package']
+                            price = product['price_in_cents'] / 100
+                            regular_price = product['regular_price_in_cents'] / 100
+                            savings = product['limited_time_offer_savings_in_cents'] / 100
+                            offer_end_date = product['limited_time_offer_ends_on']
+                            stock_type = product['stock_type']
+                            sugar_content = product['sugar_content']
+                            origin = product['origin']
+                            is_vqa = product['is_vqa']
+                            description = product['description']
+                            image_thumb_url = product['image_thumb_url']
+                            image_url = product['image_url']
+                            varietal = product['varietal']
+                            style = product['style']
                     end
                      
-                f << [name, prime_cat, prod_name, sec_cat]
+                f << [name, id, type, producer_name,  
+                    package, price, regular_price, savings, 
+                    offer_end_date, stock_type, 
+                    sugar_content, origin, is_vqa, description, image_thumb_url, 
+                    image_url, varietal, style]
+
                 puts "wine, wine, wine..."
                 
             end
