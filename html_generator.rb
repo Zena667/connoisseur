@@ -4,6 +4,7 @@
 
 require 'json'
 require 'open-uri'
+require 'csv'
 
 class HtmlGenerator
   def index(search_text)
