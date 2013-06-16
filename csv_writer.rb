@@ -6,7 +6,7 @@ require 'open-uri'
 
 begin
     # Open CSV file
-    f = CSV.open("new_wine_list.csv", "wb")
+    f = CSV.open("new_wine_list.csv", mode="wb", options={:headers=>true, :skip_blanks=>true})
 
     # Setup CSV headers
     csv_headers = %w( name id type producer_name  
@@ -19,7 +19,7 @@ begin
         def retreive_data(url)
             raw_response = open(url).read
             parsed_response = JSON.parse(raw_response)
-            result = parsed_response["result"]
+            result = parsed_response["result"] #might not need this line, shoud test
         end
 
         #retreive data from api query
@@ -34,9 +34,9 @@ begin
                             type = product['secondary_category']
                             producer_name = product['producer_name'] 
                             package = product['package']
-                            price = product['price_in_cents'] / 100
-                            regular_price = product['regular_price_in_cents'] / 100
-                            savings = product['limited_time_offer_savings_in_cents'] / 100
+                            price = product['price_in_cents'].to_f / 100
+                            regular_price = product['regular_price_in_cents'].to_f / 100
+                            savings = product['limited_time_offer_savings_in_cents'].to_f / 100
                             offer_end_date = product['limited_time_offer_ends_on']
                             stock_type = product['stock_type']
                             sugar_content = product['sugar_content']

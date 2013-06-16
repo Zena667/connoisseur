@@ -20,9 +20,13 @@ class HtmlGenerator
     def index
             puts "<h1>All products</h1>"
 
-        CSV.foreach('new_wine_list.csv') do |row|
-            @csv_headers.each_index do |i|
-                puts "#{@csv_headers[i]} is #{row[i]}"
+        CSV.foreach('new_wine_list.csv', {:headers=>true, :skip_blanks=>true}) do |row|
+            row.each do |header, value| 
+                if value != nil
+                    @csv_headers.each_index do |i|
+                        puts "#{@csv_headers[i]} is #{row[i]}"
+                    end
+                end
             end
         end
     end
