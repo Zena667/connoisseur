@@ -6,7 +6,7 @@ require 'open-uri'
 
 begin
     # Open CSV file
-    f = CSV.open("new_wine_list.csv", mode="wb", options={:headers=>true, :skip_blanks=>true})
+    f = CSV.open("new_wine_list.csv", "wb")
 
     # Setup CSV headers
     csv_headers = %w( name id type producer_name  
@@ -16,10 +16,11 @@ begin
                     image_url varietal style) 
     f << csv_headers
 
+        #method to get JSON to parse the url
         def retreive_data(url)
             raw_response = open(url).read
             parsed_response = JSON.parse(raw_response)
-            result = parsed_response["result"] #might not need this line, shoud test
+            result = parsed_response["result"] 
         end
 
         #retreive data from api query
