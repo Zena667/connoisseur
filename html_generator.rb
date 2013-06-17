@@ -18,22 +18,42 @@ class HtmlGenerator
     
 
     def index
-            puts "<h1>All products</h1>"
 
-        CSV.foreach('new_wine_list.csv', {:headers=>true, :skip_blanks=>true}) do |row|
-            row.each do |header, value| 
-                if value != nil
-                    @csv_headers.each_index do |i|
-                        puts "#{@csv_headers[i]} is #{row[i]}"
-                    end
+        print_header
+        puts "<h1>All Wine Currently on Sale</h1>"
+
+        puts "  <h2>Red Wine Selection</h2>"
+
+        #for each new line in the csv file, iterate by row (arrays)
+        CSV.foreach('new_wine_list.csv', :headers => true) do |row|
+            if row['id'] != nil
+                if row['type'] = "White Wine"
+                     
+                    puts "<div class='product_red_wine'>"
+                    puts "<h3>#{row['name']}</h3>"
+                    puts "  <img src='#{row['image_thumb_url']}' class='thumbnail_pic' />"
+                    puts "    </div>"
+                    puts row['type']
+                    
+
+
+
+                    
                 end
             end
-        end
-    end
-end
+            
+                       
+                        
 
-x = HtmlGenerator.new
-puts x.index
+
+
+        end
+        print_footer
+    end
+                   
+                    
+
+
     
     #   puts "<div class='product'>"
     #   puts "  <h2>#{product['name']}</h2>"
@@ -81,37 +101,23 @@ puts x.index
 #     print_footer
 #   end
 
-#   def print_header
-#     puts "<html>"
-#     puts "  <head>"
-#     puts "    <title>Connoisseur</title>"
-#     puts "    <link rel='stylesheet' href='normalize.css' type='text/css'>"
-#     puts "    <link rel='stylesheet' href='styles.css' type='text/css'>"
-#     puts "  </head>"
-#     puts "  <body>"
-#   end
+  def print_header
+    puts "<html>"
+    puts "  <head>"
+    puts "    <title>Boozer</title>"
+    # puts "    <link rel='stylesheet' href='normalize.css' type='text/css'>"
+    puts "    <link rel='stylesheet' href='styles.css' type='text/css'>"
+    puts "  </head>"
+    puts "  <body>"
+  end
 
-#   def print_footer
-#     puts "  </body>"
-#     puts "</html>"
-#   end
+  def print_footer
+    puts "  </body>"
+    puts "</html>"
+  end
 
-#   def retrieve_data(url)
-#     # Retrieve JSON-formatted text from lcboapi.com
-#     raw_response = open(url).read
+end
 
-#     # Parse JSON-formatted text into a Ruby Hash
-#     parsed_response = JSON.parse(raw_response)
-
-#     # Return just the actual result data from the response, ignoring metadata
-#     result = parsed_response["result"]
-#   end
-
-#   # Convert a string of a price in cents to a float.
-#   # e.g. "199" to 1.99
-#   def format_price(cents_string)
-#     cents_string.to_f/100
-#   end
-
-# end
+x = HtmlGenerator.new
+puts x.index
 

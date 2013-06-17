@@ -2,7 +2,7 @@ require 'csv'
 require 'json'
 require 'open-uri'
 
-###should try to fix line skips in CAV file as seen in Excel
+
 
 begin
     # Open CSV file
@@ -18,8 +18,11 @@ begin
 
         #method to get JSON to parse the url
         def retreive_data(url)
+            # Retrieve JSON-formatted text from lcboapi.com
             raw_response = open(url).read
+            # Parse JSON-formatted text into a Ruby Hash
             parsed_response = JSON.parse(raw_response)
+            # Return just the actual result data from the response, ignoring metadata
             result = parsed_response["result"] 
         end
 
